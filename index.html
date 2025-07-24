@@ -1,620 +1,1000 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Hub</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduHub - Your Learning Journey</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            box-shadow: 0 0 30px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-        }
+    .floating-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
 
-        .back-btn {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
 
-        .back-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-50%) scale(1.1);
-        }
+    .container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        .header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 20px 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-        .header p {
-            opacity: 0.9;
-            font-size: 0.9rem;
-        }
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
 
-        .quick-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-        }
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+    }
 
-        .quick-link {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }
+    .nav-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
 
-        .quick-link:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.1);
-        }
+    .nav-icon:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
 
-        .content {
-            padding: 20px;
-            background: #f8f9fa;
-            min-height: calc(100vh - 160px);
-        }
+    .welcome-screen {
+      text-align: center;
+      color: white;
+      margin-bottom: 60px;
+    }
 
-        .welcome-screen {
-            text-align: center;
-            padding: 40px 20px;
-        }
+    .welcome-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #fff, #f0f8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
 
-        .welcome-title {
-            color: #1e3c72;
-            font-size: 2rem;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
+    .welcome-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      opacity: 0.9;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .welcome-subtitle {
-            color: #666;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
+    .main-paths {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .main-buttons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 30px;
-        }
+    .path-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 40px 30px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .main-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
+    .path-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
 
-        .main-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
+    .path-card:hover::before {
+      left: 100%;
+    }
 
-        .subject-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 20px;
-        }
+    .path-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
 
-        .subject-btn {
-            background: white;
-            border: 2px solid #e0e6ed;
-            color: #333;
-            padding: 15px 10px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+    .path-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+    }
 
-        .subject-btn:hover {
-            border-color: #667eea;
-            color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-        }
+    .path-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 15px;
+    }
 
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            justify-content: center;
-        }
+    .path-description {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
 
-        .action-btn {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 500;
-            flex: 1;
-            max-width: 100px;
-        }
+    .content-screen {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
 
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .links-section {
-            margin-top: 20px;
-        }
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 15px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .link-item {
-            background: white;
-            margin-bottom: 8px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(-5px);
+    }
 
-        .link-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+    .subjects-grid, .teams-grid, .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .link-item a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
+    .subject-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+    }
 
-        .link-item a:hover {
-            color: #764ba2;
-        }
+    .subject-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
 
-        .hidden {
-            display: none;
-        }
+    .subject-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
 
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
+    .action-buttons {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .action-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
 
-        .resource-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
 
-        .resource-btn {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
+    .file-list {
+      display: none;
+      margin-top: 15px;
+      text-align: left;
+    }
 
-        .resource-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-        }
+    .file-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      margin: 5px 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .download-item {
-            background: #f8f9fa;
-            margin-bottom: 8px;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .file-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
 
-        .download-item:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
-        }
+    .team-link, .source-link {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      padding: 8px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      margin: 5px 0;
+      display: block;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-        .page-title {
-            color: #1e3c72;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 500;
-        }
-    </style>
+    .team-link:hover, .source-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+      color: white;
+    }
+
+    .source-buttons {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .source-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .source-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .main-paths {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .path-card {
+        padding: 30px 20px;
+      }
+
+      .subjects-grid, .teams-grid, .sources-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .action-buttons {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .source-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+
+      .welcome-title {
+        font-size: 2rem;
+      }
+
+      .path-card {
+        padding: 25px 15px;
+      }
+
+      .path-icon {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <button class="back-btn hidden" onclick="goBack()">←</button>
-            <h1 id="headerTitle">Academic Hub</h1>
-            <p id="headerSubtitle">Your learning companion</p>
-            
-            <div class="quick-links" id="quickLinks">
-                <button class="quick-link" onclick="openTelegram()" title="Telegram">📱</button>
-                <button class="quick-link" onclick="openDrive()" title="Google Drive">💾</button>
-            </div>
-        </div>
+<div class="floating-particles" id="particles"></div>
 
-        <!-- Content Area -->
-        <div class="content">
-            <!-- Welcome Screen -->
-            <div id="welcomeScreen" class="welcome-screen">
-                <h2 class="welcome-title">Welcome!</h2>
-                <p class="welcome-subtitle">Access your academic resources, join study groups, and explore learning materials all in one place.</p>
-                
-                <div class="main-buttons">
-                    <button class="main-btn" onclick="showSemesters('semester3')">
-                        📚 Semester 3
-                    </button>
-                    <button class="main-btn" onclick="showSemesters('semester4')">
-                        📖 Semester 4
-                    </button>
-                    <button class="main-btn" onclick="showTeams()">
-                        👥 Teams
-                    </button>
-                    <button class="main-btn" onclick="showSources()">
-                        🔍 Sources
-                    </button>
-                </div>
-            </div>
-
-            <!-- Semester 3 Screen -->
-            <div id="semester3Screen" class="hidden">
-                <h2 class="page-title">Semester 3 Subjects</h2>
-                <div class="subject-grid">
-                    <button class="subject-btn" onclick="showSubjectActions('Algebra')">📊 Algebra</button>
-                    <button class="subject-btn" onclick="showSubjectActions('Probability & Statistics')">📈 Probability & Statistics</button>
-                    <button class="subject-btn" onclick="showSubjectActions('Entrepreneurship')">💼 Entrepreneurship</button>
-                    <button class="subject-btn" onclick="showSubjectActions('Algorithms & Complexity')">⚡ Algorithms & Complexity</button>
-                    <button class="subject-btn" onclick="showSubjectActions('OOP1')">💻 OOP1</button>
-                    <button class="subject-btn" onclick="showSubjectActions('Analysis')">🔬 Analysis</button>
-                    <button class="subject-btn" onclick="showSubjectActions('Architecture')">🏗️ Architecture</button>
-                    <button class="subject-btn" onclick="showSubjectActions('Structure')">🔧 Structure</button>
-                </div>
-            </div>
-
-            <!-- Semester 4 Screen -->
-            <div id="semester4Screen" class="hidden">
-                <h2 class="page-title">Semester 4 Subjects</h2>
-                <div class="subject-grid">
-                    <button class="subject-btn" onclick="showSubjectActions('OOP2')">💻 OOP2</button>
-                    <button class="subject-btn" onclick="showSubjectActions('THL')">📋 THL</button>
-                    <button class="subject-btn" onclick="showSubjectActions('THG')">📊 THG</button>
-                    <button class="subject-btn" onclick="showSubjectActions('English')">🌐 English</button>
-                    <button class="subject-btn" onclick="showSubjectActions('BDD')">🗄️ BDD</button>
-                    <button class="subject-btn" onclick="showSubjectActions('SI')">🔐 SI</button>
-                    <button class="subject-btn" onclick="showSubjectActions('Network')">🌐 Network</button>
-                </div>
-            </div>
-
-            <!-- Subject Actions Screen -->
-            <div id="subjectActionsScreen" class="hidden">
-                <h2 class="page-title" id="subjectTitle">Subject</h2>
-                <div class="action-buttons">
-                    <button class="action-btn" onclick="showFiles('CC')">📝 CC</button>
-                    <button class="action-btn" onclick="showFiles('Exam')">📋 Exam</button>
-                    <button class="action-btn" onclick="showFiles('Course')">📚 Course</button>
-                </div>
-            </div>
-
-            <!-- Files Screen -->
-            <div id="filesScreen" class="hidden">
-                <h2 class="page-title" id="filesTitle">Files</h2>
-                <div id="filesList">
-                    <!-- Files will be populated here -->
-                </div>
-            </div>
-
-            <!-- Teams Screen -->
-            <div id="teamsScreen" class="hidden">
-                <h2 class="page-title">Study Teams</h2>
-                <div class="links-section" id="teamsList">
-                    <!-- Team links will be populated here -->
-                </div>
-            </div>
-
-            <!-- Sources Screen -->
-            <div id="sourcesScreen" class="hidden">
-                <h2 class="page-title">Learning Sources</h2>
-                <div class="subject-grid" id="sourcesList">
-                    <!-- Source subjects will be populated here -->
-                </div>
-            </div>
-
-            <!-- Source Resources Screen -->
-            <div id="sourceResourcesScreen" class="hidden">
-                <h2 class="page-title" id="sourceSubjectTitle">Resources</h2>
-                <div class="resource-grid">
-                    <button class="resource-btn" onclick="showResourceLinks('Books')">📚 Books</button>
-                    <button class="resource-btn" onclick="showResourceLinks('Courses')">🎓 Courses</button>
-                    <button class="resource-btn" onclick="showResourceLinks('Training')">🏋️ Training</button>
-                    <button class="resource-btn" onclick="showResourceLinks('Tutorials')">📖 Tutorials</button>
-                </div>
-            </div>
-
-            <!-- Resource Links Screen -->
-            <div id="resourceLinksScreen" class="hidden">
-                <h2 class="page-title" id="resourceType">Resource Links</h2>
-                <div class="links-section" id="resourceLinksList">
-                    <!-- Resource links will be populated here -->
-                </div>
-            </div>
-        </div>
+<div class="container">
+  <div class="header">
+    <div class="logo">🎓 EduHub</div>
+    <div class="nav-icons">
+      <a href="https://telegram.org" class="nav-icon" title="Telegram">
+        <i class="fab fa-telegram"></i>
+      </a>
+      <a href="https://drive.google.com" class="nav-icon" title="Drive">
+        <i class="fab fa-google-drive"></i>
+      </a>
     </div>
+  </div>
 
-    <script>
-        let currentScreen = 'welcome';
-        let currentSubject = '';
-        let navigationStack = [];
+  <div id="welcome" class="welcome-screen">
+    <h1 class="welcome-title">Welcome to Your Learning Journey</h1>
+    <p class="welcome-subtitle">Explore comprehensive educational resources, connect with teams, and accelerate your academic success with our modern learning platform.</p>
 
-        const subjects = {
-            semester3: ['Algebra', 'Probability & Statistics', 'Entrepreneurship', 'Algorithms & Complexity', 'OOP1', 'Analysis', 'Architecture', 'Structure'],
-            semester4: ['OOP2', 'THL', 'THG', 'English', 'BDD', 'SI', 'Network']
-        };
+    <div class="main-paths">
+      <div class="path-card" onclick="showContent('semester3')">
+        <i class="path-icon fas fa-graduation-cap"></i>
+        <h3 class="path-title">Semester 3</h3>
+        <p class="path-description">Dive into advanced mathematics, programming fundamentals, and core computer science concepts.</p>
+      </div>
 
-        const allSubjects = [...subjects.semester3, ...subjects.semester4];
+      <div class="path-card" onclick="showContent('semester4')">
+        <i class="path-icon fas fa-rocket"></i>
+        <h3 class="path-title">Semester 4</h3>
+        <p class="path-description">Advanced programming, databases, networking, and specialized technical subjects.</p>
+      </div>
 
-        function hideAllScreens() {
-            document.querySelectorAll('.content > div').forEach(screen => {
-                screen.classList.add('hidden');
-            });
+      <div class="path-card" onclick="showContent('teams')">
+        <i class="path-icon fas fa-users"></i>
+        <h3 class="path-title">Teams</h3>
+        <p class="path-description">Connect with study groups and collaborative learning communities for each subject.</p>
+      </div>
+
+      <div class="path-card" onclick="showContent('sources')">
+        <i class="path-icon fas fa-book-open"></i>
+        <h3 class="path-title">Sources</h3>
+        <p class="path-description">Access curated books, courses, tutorials, and training materials for deeper learning.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Semester 3 Content -->
+  <div id="semester3" class="content-screen">
+    <button class="back-btn" onclick="showWelcome()">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </button>
+    <h2 style="color: white; text-align: center; margin-bottom: 30px; font-size: 2rem;">Semester 3 Subjects</h2>
+    <div class="subjects-grid">
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">📊 Algebra</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">📈 Probability & Statistics</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">💼 Entrepreneurship</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">⚙️ Algorithms & Complexity</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">💻 OOP1</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">🔍 Analysis</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">🏗️ Architecture</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">🔧 Structure</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Semester 4 Content -->
+  <div id="semester4" class="content-screen">
+    <button class="back-btn" onclick="showWelcome()">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </button>
+    <h2 style="color: white; text-align: center; margin-bottom: 30px; font-size: 2rem;">Semester 4 Subjects</h2>
+    <div class="subjects-grid">
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">💻 OOP2</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">🔗 THL</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">📊 THG</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">🌍 English</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">🗄️ BDD</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">ℹ️ SI</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleActions(this)">
+        <div class="subject-title">🌐 NET</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="showFiles(this, 'CC')">CC</button>
+          <button class="action-btn" onclick="showFiles(this, 'Exam')">Exam</button>
+          <button class="action-btn" onclick="showFiles(this, 'Course')">Course</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teams Content -->
+  <div id="teams" class="content-screen">
+    <button class="back-btn" onclick="showWelcome()">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </button>
+    <h2 style="color: white; text-align: center; margin-bottom: 30px; font-size: 2rem;">Study Teams</h2>
+    <div class="teams-grid">
+      <div class="subject-card">
+        <div class="subject-title">📊 Algebra Team</div>
+        <a href="#" class="team-link">Join Algebra Study Group</a>
+        <a href="#" class="team-link">Problem Solving Sessions</a>
+        <a href="#" class="team-link">Peer Tutoring</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">📈 Statistics Team</div>
+        <a href="#" class="team-link">Statistics Study Circle</a>
+        <a href="#" class="team-link">Data Analysis Workshop</a>
+        <a href="#" class="team-link">Project Collaboration</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">💼 Entrepreneurship Team</div>
+        <a href="#" class="team-link">Business Plan Group</a>
+        <a href="#" class="team-link">Startup Ideas Discussion</a>
+        <a href="#" class="team-link">Pitch Practice Sessions</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">⚙️ Algorithms Team</div>
+        <a href="#" class="team-link">Coding Practice Group</a>
+        <a href="#" class="team-link">Algorithm Study Sessions</a>
+        <a href="#" class="team-link">Competitive Programming</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">💻 Programming Team</div>
+        <a href="#" class="team-link">OOP Study Group</a>
+        <a href="#" class="team-link">Code Review Sessions</a>
+        <a href="#" class="team-link">Project Collaboration</a>
+      </div>
+
+      <div class="subject-card">
+        <div class="subject-title">🗄️ Database Team</div>
+        <a href="#" class="team-link">SQL Practice Group</a>
+        <a href="#" class="team-link">Database Design Workshop</a>
+        <a href="#" class="team-link">Query Optimization</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sources Content -->
+  <div id="sources" class="content-screen">
+    <button class="back-btn" onclick="showWelcome()">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </button>
+    <h2 style="color: white; text-align: center; margin-bottom: 30px; font-size: 2rem;">Learning Resources</h2>
+    <div class="sources-grid">
+      <div class="subject-card" onclick="toggleSources(this)">
+        <div class="subject-title">📊 Algebra Resources</div>
+        <div class="source-buttons">
+          <button class="source-btn" onclick="showSourceLinks(this, 'Books')">Books</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Courses')">Courses</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Training')">Training</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Tutorials')">Tutorials</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleSources(this)">
+        <div class="subject-title">📈 Statistics Resources</div>
+        <div class="source-buttons">
+          <button class="source-btn" onclick="showSourceLinks(this, 'Books')">Books</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Courses')">Courses</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Training')">Training</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Tutorials')">Tutorials</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleSources(this)">
+        <div class="subject-title">💻 Programming Resources</div>
+        <div class="source-buttons">
+          <button class="source-btn" onclick="showSourceLinks(this, 'Books')">Books</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Courses')">Courses</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Training')">Training</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Tutorials')">Tutorials</button>
+        </div>
+      </div>
+
+      <div class="subject-card" onclick="toggleSources(this)">
+        <div class="subject-title">🗄️ Database Resources</div>
+        <div class="source-buttons">
+          <button class="source-btn" onclick="showSourceLinks(this, 'Books')">Books</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Courses')">Courses</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Training')">Training</button>
+          <button class="source-btn" onclick="showSourceLinks(this, 'Tutorials')">Tutorials</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Create floating particles
+  function createParticles() {
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 20;
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+
+      const size = Math.random() * 4 + 2;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 6 + 's';
+      particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+
+      particlesContainer.appendChild(particle);
+    }
+  }
+
+  // Navigation functions
+  function showContent(contentId) {
+    document.getElementById('welcome').style.display = 'none';
+    document.querySelectorAll('.content-screen').forEach(screen => {
+      screen.style.display = 'none';
+    });
+    document.getElementById(contentId).style.display = 'block';
+  }
+
+  function showWelcome() {
+    document.querySelectorAll('.content-screen').forEach(screen => {
+      screen.style.display = 'none';
+    });
+    document.getElementById('welcome').style.display = 'block';
+
+    // Reset all expanded cards
+    document.querySelectorAll('.action-buttons').forEach(buttons => {
+      buttons.style.display = 'none';
+    });
+    document.querySelectorAll('.source-buttons').forEach(buttons => {
+      buttons.style.display = 'none';
+    });
+    document.querySelectorAll('.file-list').forEach(list => {
+      list.style.display = 'none';
+    });
+  }
+
+  function toggleActions(card) {
+    const actionButtons = card.querySelector('.action-buttons');
+    const isVisible = actionButtons.style.display === 'grid';
+
+    // Hide all other action buttons
+    document.querySelectorAll('.action-buttons').forEach(buttons => {
+      buttons.style.display = 'none';
+    });
+    document.querySelectorAll('.file-list').forEach(list => {
+      list.style.display = 'none';
+    });
+
+    if (!isVisible) {
+      actionButtons.style.display = 'grid';
+    }
+  }
+
+  function showFiles(button, type) {
+    event.stopPropagation();
+
+    const card = button.closest('.subject-card');
+    const subjectTitle = card.querySelector('.subject-title').textContent.trim();
+
+    // Remove existing file list
+    const existingList = card.querySelector('.file-list');
+    if (existingList) {
+      existingList.remove();
+    }
+
+    // Create file list
+    const fileList = document.createElement('div');
+    fileList.className = 'file-list';
+    fileList.style.display = 'block';
+
+    // Sample files for demonstration
+    const files = [
+      `${subjectTitle} - ${type} - Lecture 1.pdf`,
+      `${subjectTitle} - ${type} - Assignment.docx`,
+      `${subjectTitle} - ${type} - Practice Problems.pdf`,
+      `${subjectTitle} - ${type} - Solutions.pdf`
+    ];
+
+    files.forEach(fileName => {
+      const fileItem = document.createElement('div');
+      fileItem.className = 'file-item';
+      fileItem.innerHTML = `
+                    <i class="fas fa-download"></i>
+                    <span>${fileName}</span>
+                `;
+      fileItem.onclick = () => downloadFile(fileName);
+      fileList.appendChild(fileItem);
+    });
+
+    card.appendChild(fileList);
+  }
+
+  function downloadFile(fileName) {
+    // Simulate file download
+    const link = document.createElement('a');
+    link.href = '#';
+    link.download = fileName;
+    link.click();
+
+    // Show download notification
+    showNotification(`Downloading: ${fileName}`);
+  }
+
+  function toggleSources(card) {
+    const sourceButtons = card.querySelector('.source-buttons');
+    const isVisible = sourceButtons.style.display === 'grid';
+
+    // Hide all other source buttons
+    document.querySelectorAll('.source-buttons').forEach(buttons => {
+      buttons.style.display = 'none';
+    });
+    document.querySelectorAll('.file-list').forEach(list => {
+      list.style.display = 'none';
+    });
+
+    if (!isVisible) {
+      sourceButtons.style.display = 'grid';
+    }
+  }
+
+  function showSourceLinks(button, type) {
+    event.stopPropagation();
+
+    const card = button.closest('.subject-card');
+    const subjectTitle = card.querySelector('.subject-title').textContent.trim();
+
+    // Remove existing file list
+    const existingList = card.querySelector('.file-list');
+    if (existingList) {
+      existingList.remove();
+    }
+
+    // Create source links list
+    const linksList = document.createElement('div');
+    linksList.className = 'file-list';
+    linksList.style.display = 'block';
+
+    // Sample links for demonstration
+    const links = [
+      `${type} - Introduction to ${subjectTitle}`,
+      `${type} - Advanced ${subjectTitle} Concepts`,
+      `${type} - ${subjectTitle} Practical Guide`,
+      `${type} - ${subjectTitle} Reference Material`
+    ];
+
+    links.forEach(linkText => {
+      const linkItem = document.createElement('div');
+      linkItem.className = 'file-item';
+      linkItem.innerHTML = `
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>${linkText}</span>
+                `;
+      linkItem.onclick = () => openLink(linkText);
+      linksList.appendChild(linkItem);
+    });
+
+    card.appendChild(linksList);
+  }
+
+  function openLink(linkText) {
+    // Simulate opening external link
+    showNotification(`Opening: ${linkText}`);
+    // In a real implementation, you would open the actual link
+    // window.open('actual-url', '_blank');
+  }
+
+  function showNotification(message) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: rgba(255, 255, 255, 0.9);
+                color: #333;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                font-weight: 500;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                animation: slideIn 0.3s ease-out;
+            `;
+
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+      notification.style.animation = 'slideOut 0.3s ease-in forwards';
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
         }
+      }, 300);
+    }, 3000);
+  }
 
-        function showScreen(screenId) {
-            hideAllScreens();
-            document.getElementById(screenId).classList.remove('hidden');
-            document.getElementById(screenId).classList.add('fade-in');
-            
-            // Update header
-            const backBtn = document.querySelector('.back-btn');
-            if (screenId === 'welcomeScreen') {
-                backBtn.classList.add('hidden');
-                document.getElementById('quickLinks').classList.remove('hidden');
-            } else {
-                backBtn.classList.remove('hidden');
-                document.getElementById('quickLinks').classList.add('hidden');
-            }
-        }
-
-        function showSemesters(semester) {
-            navigationStack.push(currentScreen);
-            currentScreen = semester;
-            showScreen(semester + 'Screen');
-            document.getElementById('headerTitle').textContent = semester === 'semester3' ? 'Semester 3' : 'Semester 4';
-            document.getElementById('headerSubtitle').textContent = 'Select a subject';
-        }
-
-        function showSubjectActions(subject) {
-            navigationStack.push(currentScreen);
-            currentScreen = 'subjectActions';
-            currentSubject = subject;
-            showScreen('subjectActionsScreen');
-            document.getElementById('subjectTitle').textContent = subject;
-            document.getElementById('headerTitle').textContent = subject;
-            document.getElementById('headerSubtitle').textContent = 'Choose action';
-        }
-
-        function showFiles(fileType) {
-            navigationStack.push(currentScreen);
-            currentScreen = 'files';
-            showScreen('filesScreen');
-            document.getElementById('filesTitle').textContent = `${currentSubject} - ${fileType}`;
-            document.getElementById('headerTitle').textContent = fileType;
-            document.getElementById('headerSubtitle').textContent = 'Download files';
-            
-            // Populate files list
-            const filesList = document.getElementById('filesList');
-            filesList.innerHTML = '';
-            
-            const sampleFiles = [
-                `${fileType}_Chapter1.pdf`,
-                `${fileType}_Chapter2.pdf`,
-                `${fileType}_Chapter3.pdf`,
-                `${fileType}_Practice_Exercises.pdf`,
-                `${fileType}_Solutions.pdf`
-            ];
-            
-            sampleFiles.forEach(fileName => {
-                const fileItem = document.createElement('div');
-                fileItem.className = 'download-item';
-                fileItem.innerHTML = `📄 ${fileName}`;
-                fileItem.onclick = () => downloadFile(fileName);
-                filesList.appendChild(fileItem);
-            });
-        }
-
-        function showTeams() {
-            navigationStack.push(currentScreen);
-            currentScreen = 'teams';
-            showScreen('teamsScreen');
-            document.getElementById('headerTitle').textContent = 'Study Teams';
-            document.getElementById('headerSubtitle').textContent = 'Join study groups';
-            
-            const teamsList = document.getElementById('teamsList');
-            teamsList.innerHTML = '';
-            
-            allSubjects.forEach(subject => {
-                const teamItem = document.createElement('div');
-                teamItem.className = 'link-item';
-                teamItem.innerHTML = `<a href="#" onclick="joinTeam('${subject}')">${subject} Study Group</a>`;
-                teamsList.appendChild(teamItem);
-            });
-        }
-
-        function showSources() {
-            navigationStack.push(currentScreen);
-            currentScreen = 'sources';
-            showScreen('sourcesScreen');
-            document.getElementById('headerTitle').textContent = 'Learning Sources';
-            document.getElementById('headerSubtitle').textContent = 'Browse resources';
-            
-            const sourcesList = document.getElementById('sourcesList');
-            sourcesList.innerHTML = '';
-            
-            allSubjects.forEach(subject => {
-                const sourceBtn = document.createElement('button');
-                sourceBtn.className = 'subject-btn';
-                sourceBtn.innerHTML = `📚 ${subject}`;
-                sourceBtn.onclick = () => showSourceResources(subject);
-                sourcesList.appendChild(sourceBtn);
-            });
-        }
-
-        function showSourceResources(subject) {
-            navigationStack.push(currentScreen);
-            currentScreen = 'sourceResources';
-            currentSubject = subject;
-            showScreen('sourceResourcesScreen');
-            document.getElementById('sourceSubjectTitle').textContent = subject + ' Resources';
-            document.getElementById('headerTitle').textContent = subject;
-            document.getElementById('headerSubtitle').textContent = 'Learning resources';
-        }
-
-        function showResourceLinks(resourceType) {
-            navigationStack.push(currentScreen);
-            currentScreen = 'resourceLinks';
-            showScreen('resourceLinksScreen');
-            document.getElementById('resourceType').textContent = `${currentSubject} - ${resourceType}`;
-            document.getElementById('headerTitle').textContent = resourceType;
-            document.getElementById('headerSubtitle').textContent = 'External resources';
-            
-            const linksList = document.getElementById('resourceLinksList');
-            linksList.innerHTML = '';
-            
-            const sampleLinks = [
-                `Free ${resourceType} - Khan Academy`,
-                `${resourceType} - Coursera`,
-                `${resourceType} - edX`,
-                `Interactive ${resourceType} - Codecademy`,
-                `${resourceType} - YouTube Playlist`
-            ];
-            
-            sampleLinks.forEach(linkName => {
-                const linkItem = document.createElement('div');
-                linkItem.className = 'link-item';
-                linkItem.innerHTML = `<a href="#" onclick="openResource('${linkName}')">${linkName}</a>`;
-                linksList.appendChild(linkItem);
-            });
-        }
-
-        function goBack() {
-            if (navigationStack.length > 0) {
-                const previousScreen = navigationStack.pop();
-                currentScreen = previousScreen;
-                
-                if (previousScreen === 'welcome') {
-                    showScreen('welcomeScreen');
-                    document.getElementById('headerTitle').textContent = 'Academic Hub';
-                    document.getElementById('headerSubtitle').textContent = 'Your learning companion';
-                } else if (previousScreen === 'semester3') {
-                    showScreen('semester3Screen');
-                    document.getElementById('headerTitle').textContent = 'Semester 3';
-                    document.getElementById('headerSubtitle').textContent = 'Select a subject';
-                } else if (previousScreen === 'semester4') {
-                    showScreen('semester4Screen');
-                    document.getElementById('headerTitle').textContent = 'Semester 4';
-                    document.getElementById('headerSubtitle').textContent = 'Select a subject';
-                } else if (previousScreen === 'subjectActions') {
-                    showScreen('subjectActionsScreen');
-                    document.getElementById('headerTitle').textContent = currentSubject;
-                    document.getElementById('headerSubtitle').textContent = 'Choose action';
-                } else if (previousScreen === 'teams') {
-                    showTeams();
-                } else if (previousScreen === 'sources') {
-                    showSources();
-                } else if (previousScreen === 'sourceResources') {
-                    showSourceResources(currentSubject);
+  // Add slide animations for notifications
+  const style = document.createElement('style');
+  style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
                 }
             }
-        }
 
-        function openTelegram() {
-            window.open('https://t.me/your_telegram_channel', '_blank');
-        }
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+  document.head.appendChild(style);
 
-        function openDrive() {
-            window.open('https://drive.google.com/drive/folders/your_folder_id', '_blank');
-        }
+  // Initialize particles when page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    createParticles();
 
-        function downloadFile(fileName) {
-            alert(`Downloading: ${fileName}`);
-            // In a real app, this would trigger an actual download
-        }
+    // Add smooth scrolling behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
 
-        function joinTeam(subject) {
-            alert(`Joining ${subject} study group...`);
-            // In a real app, this would open the team link
-        }
+    // Add entrance animations
+    setTimeout(() => {
+      document.querySelector('.welcome-title').style.animation = 'fadeIn 1s ease-out';
+      document.querySelector('.welcome-subtitle').style.animation = 'fadeIn 1s ease-out 0.3s both';
+      document.querySelectorAll('.path-card').forEach((card, index) => {
+        card.style.animation = `fadeIn 0.6s ease-out ${0.6 + index * 0.1}s both`;
+      });
+    }, 100);
+  });
 
-        function openResource(resourceName) {
-            alert(`Opening: ${resourceName}`);
-            // In a real app, this would open the external resource
-        }
+  // Add keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      showWelcome();
+    }
+  });
 
-        // Initialize the app
-        document.addEventListener('DOMContentLoaded', function() {
-            showScreen('welcomeScreen');
-        });
-    </script>
+  // Add touch gestures for mobile
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!touchStartX || !touchStartY) return;
+
+    const touchEndX = e.touches[0].clientX;
+    const touchEndY = e.touches[0].clientY;
+
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+
+    // Swipe right to go back (only if we're not on welcome screen)
+    if (Math.abs(diffX) > Math.abs(diffY) && diffX < -50 &&
+            document.getElementById('welcome').style.display === 'none') {
+      showWelcome();
+    }
+
+    touchStartX = 0;
+    touchStartY = 0;
+  });
+
+  // Add performance optimization for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe all cards for scroll animations
+  setTimeout(() => {
+    document.querySelectorAll('.subject-card, .path-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      observer.observe(card);
+    });
+  }, 1000);
+</script>
 </body>
 </html>
