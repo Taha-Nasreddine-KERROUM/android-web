@@ -12,6 +12,56 @@
       box-sizing: border-box;
     }
 
+    /* Real kitten paw cursor with click animation */
+    * {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text x="8" y="24" font-size="20" font-family="Arial, sans-serif">🐾</text></svg>') 16 16, auto !important;
+    }
+
+    a, button, .nav-icon, .path-card, .subject-card, .file-item, .team-link, .source-link,
+    .action-btn, .source-btn, .search-button, .back-btn, input, [onclick] {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><text x="8" y="28" font-size="24" font-family="Arial, sans-serif">🐾</text></svg>') 18 18, pointer !important;
+    }
+
+    /* Force cursor on all interactive elements */
+    *:hover {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><text x="8" y="28" font-size="24" font-family="Arial, sans-serif">🐾</text></svg>') 18 18, auto !important;
+    }
+
+    /* Click animation for cursor size changes */
+    .cursor-big {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44"><text x="10" y="32" font-size="28" font-family="Arial, sans-serif">🐾</text></svg>') 22 22, pointer !important;
+    }
+
+    .cursor-small {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><text x="6" y="22" font-size="18" font-family="Arial, sans-serif">🐾</text></svg>') 14 14, pointer !important;
+    }
+
+    /* Apply cursor changes to all elements */
+    .cursor-big * {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44"><text x="10" y="32" font-size="28" font-family="Arial, sans-serif">🐾</text></svg>') 22 22, pointer !important;
+    }
+
+    .cursor-small * {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><text x="6" y="22" font-size="18" font-family="Arial, sans-serif">🐾</text></svg>') 14 14, pointer !important;
+    }
+
+    /* Cute decorative elements */
+    .decorative-paws {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 2rem;
+      opacity: 0.3;
+      z-index: 5;
+      animation: wiggle 3s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      75% { transform: rotate(-5deg); }
+    }
+
     body {
       font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
@@ -520,6 +570,128 @@
       content: ' 🐾';
     }
 
+    /* Cute decorative elements */
+    .decorative-paws {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 2rem;
+      opacity: 0.3;
+      z-index: 5;
+      animation: wiggle 3s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      75% { transform: rotate(-5deg); }
+    }
+
+    /* Modal styles for file viewer */
+    .file-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      margin: 2% auto;
+      padding: 0;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 1200px;
+      height: 90%;
+      display: flex;
+      flex-direction: column;
+      border: 3px solid rgba(255, 182, 193, 0.5);
+      box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+      color: white;
+      padding: 20px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 17px 17px 0 0;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .close-modal {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .close-modal:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .modal-body {
+      flex: 1;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-footer {
+      background: rgba(255, 240, 245, 0.9);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      border-radius: 0 0 17px 17px;
+    }
+
+    .modal-btn {
+      background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(253, 121, 168, 0.4);
+    }
+
     @media (max-width: 768px) {
       .header {
         flex-direction: column;
@@ -554,6 +726,21 @@
       .search-input {
         width: 180px;
       }
+
+      .modal-content {
+        width: 95%;
+        height: 95%;
+        margin: 2.5% auto;
+      }
+
+      .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .modal-btn {
+        justify-content: center;
+      }
     }
 
     @media (max-width: 480px) {
@@ -576,23 +763,6 @@
       .logo {
         font-size: 1.8rem;
       }
-    }
-
-    /* Cute decorative elements */
-    .decorative-paws {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      font-size: 2rem;
-      opacity: 0.3;
-      z-index: 5;
-      animation: wiggle 3s ease-in-out infinite;
-    }
-
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(5deg); }
-      75% { transform: rotate(-5deg); }
     }
   </style>
 </head>
@@ -910,7 +1080,48 @@
   </div>
 </div>
 
+<!-- Modal for displaying Google Drive files -->
+<div id="fileModal" class="file-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">📄 File Viewer 🐾</h3>
+      <button class="close-modal" onclick="closeFileModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <iframe id="fileIframe" src="" frameborder="0"></iframe>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn" onclick="openInNewTab()">
+        <i class="fas fa-external-link-alt"></i> Open in New Tab
+      </button>
+      <button class="modal-btn" onclick="closeFileModal()">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
+  function animateCursorClick() {
+    const body = document.body;
+
+    // Step 1: Make cursor bigger
+    body.classList.add('cursor-big');
+
+    setTimeout(() => {
+      // Step 2: Make cursor smaller than normal
+      body.classList.remove('cursor-big');
+      body.classList.add('cursor-small');
+
+      setTimeout(() => {
+        // Step 3: Back to normal
+        body.classList.remove('cursor-small');
+      }, 100); // Small size for 100ms
+    }, 100); // Big size for 100ms
+  }
+
   // Create floating particles with paw prints
   function createParticles() {
     const particlesContainer = document.getElementById('particles');
@@ -993,38 +1204,103 @@
     fileList.className = 'file-list';
     fileList.style.display = 'block';
 
-    // Sample files for demonstration
+    // Sample Google Drive files for demonstration
     const files = [
-      `${subjectTitle} - ${type} - Lecture 1.pdf`,
-      `${subjectTitle} - ${type} - Assignment.docx`,
-      `${subjectTitle} - ${type} - Practice Problems.pdf`,
-      `${subjectTitle} - ${type} - Solutions.pdf`
+      {
+        name: `${subjectTitle} - ${type} - Lecture 1.pdf`,
+        driveId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms', // Sample Google Drive file ID
+        type: 'pdf'
+      },
+      {
+        name: `${subjectTitle} - ${type} - Assignment.docx`,
+        driveId: '1mGVAMTKdtdMQ4wX0X6F8wplqmr2qrvdxkpGy6gYPFyM', // Sample Google Drive file ID
+        type: 'doc'
+      },
+      {
+        name: `${subjectTitle} - ${type} - Practice Problems.pdf`,
+        driveId: '1sRRQRRqgsHFFn5C0O2gVxjVHPFfZ9dqBqTtCIaLRMgg', // Sample Google Drive file ID
+        type: 'pdf'
+      },
+      {
+        name: `${subjectTitle} - ${type} - Solutions.pdf`,
+        driveId: '1AIzaSyCTg-a0i40QHtfh0O_Xb9C2v-1Hqg6Z1rY', // Sample Google Drive file ID
+        type: 'pdf'
+      }
     ];
 
-    files.forEach(fileName => {
+    files.forEach(file => {
       const fileItem = document.createElement('div');
       fileItem.className = 'file-item';
       fileItem.innerHTML = `
-                    <i class="fas fa-download" style="color: #fd79a8;"></i>
-                    <span>${fileName}</span>
+                    <i class="fas fa-file-${file.type === 'pdf' ? 'pdf' : 'word'}" style="color: #fd79a8;"></i>
+                    <span>${file.name}</span>
                 `;
-      fileItem.onclick = () => downloadFile(fileName);
+      fileItem.onclick = () => openFileInModal(file.name, file.driveId, file.type);
       fileList.appendChild(fileItem);
     });
 
     card.appendChild(fileList);
   }
 
-  function downloadFile(fileName) {
-    // Simulate file download
-    const link = document.createElement('a');
-    link.href = '#';
-    link.download = fileName;
-    link.click();
+  // Global variable to store current file URL for "Open in New Tab" functionality
+  let currentFileUrl = '';
 
-    // Show download notification
-    showNotification(`🐱 Downloading: ${fileName}`);
+  function openFileInModal(fileName, driveId, fileType) {
+    // Convert Google Drive file ID to embeddable URL
+    let embedUrl = '';
+
+    if (fileType === 'pdf') {
+      // For PDFs, use Google Drive's preview URL
+      embedUrl = `https://drive.google.com/file/d/${driveId}/preview`;
+    } else if (fileType === 'doc') {
+      // For Google Docs, use the embed URL
+      embedUrl = `https://docs.google.com/document/d/${driveId}/edit?usp=sharing&embedded=true`;
+    } else {
+      // For other file types, try the preview URL
+      embedUrl = `https://drive.google.com/file/d/${driveId}/preview`;
+    }
+
+    // Store the URL for "Open in New Tab" functionality
+    currentFileUrl = `https://drive.google.com/file/d/${driveId}/view`;
+
+    // Set modal content
+    document.getElementById('modalTitle').textContent = `📄 ${fileName} 🐾`;
+    document.getElementById('fileIframe').src = embedUrl;
+
+    // Show modal
+    document.getElementById('fileModal').style.display = 'block';
+
+    // Show notification
+    showNotification(`🐱 Opening: ${fileName}`);
   }
+
+  function closeFileModal() {
+    document.getElementById('fileModal').style.display = 'none';
+    document.getElementById('fileIframe').src = '';
+    currentFileUrl = '';
+  }
+
+  function openInNewTab() {
+    if (currentFileUrl) {
+      window.open(currentFileUrl, '_blank');
+      showNotification('🌸 File opened in new tab!');
+    }
+  }
+
+  // Close modal when clicking outside of it
+  window.onclick = function(event) {
+    const modal = document.getElementById('fileModal');
+    if (event.target === modal) {
+      closeFileModal();
+    }
+  }
+
+  // Close modal with Escape key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeFileModal();
+    }
+  });
 
   function toggleSources(card) {
     const sourceButtons = card.querySelector('.source-buttons');
@@ -1183,11 +1459,11 @@
     touchStartY = e.touches[0].clientY;
   });
 
-  document.addEventListener('touchmove', (e) => {
+  document.addEventListener('touchend', (e) => {
     if (!touchStartX || !touchStartY) return;
 
-    const touchEndX = e.touches[0].clientX;
-    const touchEndY = e.touches[0].clientY;
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
 
     const diffX = touchStartX - touchEndX;
     const diffY = touchStartY - touchEndY;
@@ -1200,6 +1476,11 @@
 
     touchStartX = 0;
     touchStartY = 0;
+  });
+
+  // Add click gesture functionality
+  document.addEventListener('click', (e) => {
+    animateCursorClick();
   });
 
   // Add performance optimization for animations
